@@ -1,9 +1,10 @@
 from flask import Flask, request
+import json
 
 app = Flask(__name__)
 
 class User:
-    def __init__(self, first_name: str, last_name: str, email: str, phone_number: str) -> None:
+    def __init__(self, username: str, password: str, first_name: str, last_name: str, email: str, phone_number: str) -> None:
         self.first_name = first_name
         self.last_name = last_name
 
@@ -13,14 +14,31 @@ def hello_world() -> str:
 
 @app.get("/user")
 def get_user() -> str:
-    return
+    
+    username = request.args['username']
+    first_name = request.args['first_name']
+    last_name = request.args['last_name']
+    email = request.args['email']
+    phone_number = request.args['phone_number']
+
+    user_string = '{"username": "' + username + '", "first_name": "' + first_name + '", "last_name": "' + last_name + '", "email": "' + email + '", "phone_number": "' + phone_number + '"}'
+    user_json = json.loads(user_string)
+
+    return user_json
 
 @app.post("/user")
 def create_user() -> str:
     # TODO: fill this in
     # how to take in query parameters
+    username = request.args['username']
+    password = request.args['password']
+    first_name = request.args['first_name']
+    last_name = request.args['last_name']
+    email = request.args['email']
+    phone_number = request.args['phone_number']
 
-    new_user = User()
+    new_user = User(username, first_name, last_name, email, phone_number)
+
     pass
 
 # flask run --host=0.0.0.0
