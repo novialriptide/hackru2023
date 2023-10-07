@@ -22,11 +22,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Choose your available times</Text>
-      {
-        for (let i: number = 0; i < 10; i++) {
-          
-        }
-      }
       <StatusBar style="auto" />
     </View>
   );
