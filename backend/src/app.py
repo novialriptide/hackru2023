@@ -8,37 +8,44 @@ class User:
         self.first_name = first_name
         self.last_name = last_name
 
-@app.route("/")
-def hello_world() -> str:
-    return "<p>Hello, World!</p>"
-
-@app.get("/user")
-def get_user() -> str:
+class Server:
     
-    username = request.args['username']
-    first_name = request.args['first_name']
-    last_name = request.args['last_name']
-    email = request.args['email']
-    phone_number = request.args['phone_number']
+    def __init__(self, user_list: list):
+        self.user_list = []
 
-    user_string = '{"username": "' + username + '", "first_name": "' + first_name + '", "last_name": "' + last_name + '", "email": "' + email + '", "phone_number": "' + phone_number + '"}'
-    user_json = json.loads(user_string)
+    @app.route("/")
+    def hello_world() -> str:
+        return "<p>Hello, Andrew Hong</p>"
 
-    return user_json
+    @app.get("/user")
+    def get_user() -> str:
 
-@app.post("/user")
-def create_user() -> str:
-    # TODO: fill this in
-    # how to take in query parameters
-    username = request.args['username']
-    password = request.args['password']
-    first_name = request.args['first_name']
-    last_name = request.args['last_name']
-    email = request.args['email']
-    phone_number = request.args['phone_number']
+        username = request.args['username']
+        first_name = request.args['first_name']
+        last_name = request.args['last_name']
+        email = request.args['email']
+        phone_number = request.args['phone_number']
 
-    new_user = User(username, first_name, last_name, email, phone_number)
+        user_string = '{"username": "' + username + '", "first_name": "' + first_name + '", "last_name": "' + last_name + '", "email": "' + email + '", "phone_number": "' + phone_number + '"}'
+        user_json = json.loads(user_string)
 
-    pass
+        return user_json
+
+    @app.post("/user")
+    def create_user(self) -> str:
+        # TODO: fill this in
+        # how to take in query parameters
+        username = request.args['username']
+        password = request.args['password']
+        first_name = request.args['first_name']
+        last_name = request.args['last_name']
+        email = request.args['email']
+        phone_number = request.args['phone_number']
+
+        new_user = User(username, first_name, last_name, email, phone_number)
+        
+        self.user_list.append(new_user)
+
+        return
 
 # flask run --host=0.0.0.0
